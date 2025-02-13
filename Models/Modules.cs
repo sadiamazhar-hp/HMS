@@ -9,6 +9,7 @@ using System.Globalization;
 using Azure.Core;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using V._3._0.Interfaces;
 
 namespace V._3._0.Models
 {
@@ -21,7 +22,8 @@ namespace V._3._0.Models
     {
         Male,Female, Other
     }
-    public class Patients
+
+    public partial class Patients
     {
         [BindProperty]
         [Key]
@@ -46,6 +48,12 @@ namespace V._3._0.Models
         public virtual ICollection<PatientApp> PatientApp { get; set; }
 
         public virtual ICollection<PatientPayment> PatientPayments { get; set; }
+
+    }
+    public partial class Patients
+    {
+        public int? SignupId { get; set; }  // Foreign key
+        public virtual Signup? Signup { get; set; }  // Navigation property
     }
     public class PersonalInfo
     {
@@ -64,6 +72,7 @@ namespace V._3._0.Models
         
         public virtual Patients Patients { get; set; }
     }
+    
     public class MedicalInfo
     {
         [BindProperty]
@@ -130,5 +139,27 @@ namespace V._3._0.Models
         public virtual PatientPayment PatientPayment { get; set; }
 
     }
+    public class NewPatientDTO
+    {
+        [Required]
+        public String Name { get; set; }
+        [Required]
+        public PatientStatus Status { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive value")]
+        public int Roomno { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfAdm { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfDis { get; set; }
+        
+    }
+
+    
+    
+    
 
 }
