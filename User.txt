@@ -1,0 +1,5 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+INSERT INTO [HMS].[dbo].[HospitalUser] ([Name], [Email], [Password], [ConfirmPassword], [Roles])  
+VALUES  
+    ('John Doe', 'johndoe@example.com', 'Password123', 'Password123', '1'),  
+    ('Jane Smith', 'janesmith@example.com', '12345', '12345', '0');  
