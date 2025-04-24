@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,8 @@ using V._3._0.Interfaces;
 using V._3._0.Methods;
 using V._3._0.Models;
 using V._3._0.Repostories;
+using System.Text.Json;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +39,7 @@ builder.Services.AddSwaggerGen(c =>
 
 //builder.Services.AddScoped<IHosData, HosData>();
 builder.Services.AddDbContext<HospitalData>
-    (options => options.UseSqlServer("Data Source=HAFIZMUHAMMADHA\\SQLEXPRESS;Initial Catalog=HMS;Integrated Security=True;TrustServerCertificate=True"));
+    (options => options.UseSqlServer("Data Source=DESKTOP-5UE9NQG\\MSSQLSERVERNEW; Database=HMS;User ID=sa;Password=12345;Encrypt=True;Trust Server Certificate=True;Multi Subnet Failover=False"));
 
 
 // Authenticatin

@@ -36,8 +36,9 @@ namespace V._3._0.Controllers
         //Method to Display the list of patients in patients view
         public IActionResult Patients()
         {
-            var HosId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            patients = db.Patients.Where(p => p.SignupId == HosId).ToList();
+            //var HosId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            //patients = db.Patients.Where(p => p.SignupId == HosId).ToList();
+            patients = db.Patients.ToList();
             return View(patients);
         }
         //Specific method to Search Patients
@@ -83,12 +84,11 @@ namespace V._3._0.Controllers
                 Status = newpatient.Status,
                 DateOfAdm = newpatient.DateOfAdm,
                 DateOfDis = newpatient.DateOfDis,
-                Roomno = newpatient.Roomno,
-                SignupId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                Roomno = newpatient.Roomno
             
         };
-            db.Patients.Add(patient);
-            db.SaveChanges();
+            patientsdata.Add(patient);
+          
             return RedirectToAction("Patients", "Modules");
 
 

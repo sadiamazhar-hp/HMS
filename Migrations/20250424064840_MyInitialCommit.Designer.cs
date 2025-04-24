@@ -12,15 +12,15 @@ using V._3._0.App_Data;
 namespace V._3._0.Migrations
 {
     [DbContext(typeof(HospitalData))]
-    [Migration("20240703103630_migration1")]
-    partial class migration1
+    [Migration("20250424064840_MyInitialCommit")]
+    partial class MyInitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -125,7 +125,6 @@ namespace V._3._0.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("SignupId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -226,15 +225,15 @@ namespace V._3._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HospitalName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -281,8 +280,7 @@ namespace V._3._0.Migrations
                     b.HasOne("V._3._0.Models.Signup", "Signup")
                         .WithMany("Patients")
                         .HasForeignKey("SignupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Signup");
                 });

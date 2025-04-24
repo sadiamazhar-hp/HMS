@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace V._3._0.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class MyInitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,11 @@ namespace V._3._0.Migrations
                 {
                     SignupId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HospitalName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +39,7 @@ namespace V._3._0.Migrations
                     Roomno = table.Column<int>(type: "int", nullable: false),
                     DateOfAdm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfDis = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SignupId = table.Column<int>(type: "int", nullable: false)
+                    SignupId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

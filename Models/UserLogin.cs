@@ -26,7 +26,7 @@ namespace V._3._0.Models
                 "Doctor" => "/Doctor/Portal",
                 "Patient" => "/Patient/Profile",
                 "Staff" => "/Staff/Management",
-                _ => "/Home/Index" // Default
+                _ => "/Login/Home" // Default
             };
         }
     }

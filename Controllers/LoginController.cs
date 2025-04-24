@@ -87,9 +87,12 @@ namespace V._3._0.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/");
         }
-        
 
 
+        public IActionResult Home()
+        {
+            return View(); // Will look for Views/Login/Home.cshtml
+        }
         /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(UserLogin login, string ReturnUrl = "")
@@ -130,6 +133,6 @@ namespace V._3._0.Controllers
             return View();
 
         }*/
-           
+
     }
 }
