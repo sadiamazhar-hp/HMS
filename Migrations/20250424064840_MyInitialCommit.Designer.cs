@@ -12,15 +12,15 @@ using V._3._0.App_Data;
 namespace V._3._0.Migrations
 {
     [DbContext(typeof(HospitalData))]
-    [Migration("20231115155925_10")]
-    partial class _10
+    [Migration("20250424064840_MyInitialCommit")]
+    partial class MyInitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -124,10 +124,15 @@ namespace V._3._0.Migrations
                     b.Property<int>("Roomno")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SignupId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SignupId");
 
                     b.ToTable("Patients");
                 });
@@ -204,13 +209,13 @@ namespace V._3._0.Migrations
                     b.ToTable("PersonalInfo");
                 });
 
-            modelBuilder.Entity("V._3._0.Models.SignUp", b =>
+            modelBuilder.Entity("V._3._0.Models.Signup", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("SignupId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SignupId"));
 
                     b.Property<string>("ConfirmPassword")
                         .IsRequired()
@@ -220,7 +225,7 @@ namespace V._3._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HospitalName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -228,13 +233,13 @@ namespace V._3._0.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("location")
+                    b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SignupId");
 
-                    b.ToTable("HosUser");
+                    b.ToTable("HospitalUser");
                 });
 
             modelBuilder.Entity("V._3._0.Models.MedicalInfo", b =>
@@ -268,6 +273,16 @@ namespace V._3._0.Migrations
                         .IsRequired();
 
                     b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("V._3._0.Models.Patients", b =>
+                {
+                    b.HasOne("V._3._0.Models.Signup", "Signup")
+                        .WithMany("Patients")
+                        .HasForeignKey("SignupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Signup");
                 });
 
             modelBuilder.Entity("V._3._0.Models.PaymentDetail", b =>
@@ -307,6 +322,11 @@ namespace V._3._0.Migrations
 
                     b.Navigation("PersonalInfo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("V._3._0.Models.Signup", b =>
+                {
+                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,6 +9,7 @@
     <form asp-controller="Modules" asp-action="NewPatient" method="post">
         <div class="input">
             <input asp-for="Id" type="hidden" />
+            <input asp-for="SignupId" type="hidden" value="19" />
             <label asp-for="Name">Patient Name:</label>
             <input asp-for="Name" type="text" placeholder="Patient_Name">
             <span class="text-danger" asp-validation-for="Name"></span>

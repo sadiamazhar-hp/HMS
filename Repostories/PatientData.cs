@@ -1,4 +1,5 @@
-﻿using V._3._0.App_Data;
+﻿using System.Security.Claims;
+using V._3._0.App_Data;
 using V._3._0.Interfaces;
 using V._3._0.Models;
 
@@ -24,8 +25,9 @@ namespace V._3._0.Methods
         }
         public Patients Add(Patients newpatients)
         {
-            patients.Add(newpatients);
-            newpatients.Id = patients.Max(p => p.Id) + 1;
+            
+            db.Patients.Add(newpatients);
+            db.SaveChanges();
             return newpatients;
         }
         public Patients update(Patients PatientUpdated)

@@ -7,7 +7,6 @@ namespace V._3._0.App_Data
     {
         public HospitalData(DbContextOptions<HospitalData> options)
             : base(options) { }
-        public DbSet<SignUp> HosUser { get; set; }
         public DbSet<Patients> Patients { get; set; }
         public DbSet<PersonalInfo> PersonalInfo { get; set; }
 
@@ -17,6 +16,9 @@ namespace V._3._0.App_Data
         public DbSet<PatientPayment> PatientPayments { get; set; }
 
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
+
+        public DbSet<Signup> HospitalUser { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /* Configure the one-to-one relationship
@@ -54,6 +56,12 @@ namespace V._3._0.App_Data
            .HasMany(s => s.PaymentDetails)
            .WithOne(a => a.PatientPayment)
            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Signup>()
+                .HasMany(su => su.Patients)
+                .WithOne(p => p.Signup)
+                .HasForeignKey(p => p.SignupId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 

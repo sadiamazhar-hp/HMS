@@ -5,14 +5,26 @@
 <head>
     <title> Hospitium Login </title>
     <meta http-equiv="X-UA-Compatible" name="viewport" content="width=device-width , initial-scale=1.0 , IE-Edge">
-    <link rel="stylesheet" href="~/css/Login/style.css">
+    <link rel="stylesheet" href="~/css/Login/style.css" asp-append-version="true">
+
 </head>
 <body>
+
     <div class="background">
         <div class="shape"></div>
     </div>
-    <form action="Login/Home" method="post">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            alert("@TempData["ErrorMessage"]");
+        </script>
+    }
+    <form action="Login" method="post">
+        <input type="hidden" asp-for="ReturnUrl" />
         <h3> Login Here </h3>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" type="text" placeholder="UserName" />
+        <span class="text-danger" asp-validation-for="Name"></span>
         <label asp-for="Emailid"> E-Mail</label>
         <input asp-for="Emailid" type=" text" placeholder="Email">
         <span class="text-danger" asp-validation-for="Emailid"></span>
@@ -21,7 +33,7 @@
         <span class="text-danger" asp-validation-for="Password"></span>
         <br> 
 
-           <button asp-controller="Login" asp-action="Home"
+           <button asp-controller="Login" asp-action="Login" formmethod="post"
            type="submit" class="login_button">
                 Login
             </button>

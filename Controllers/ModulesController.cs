@@ -12,9 +12,13 @@ using Microsoft.Net.Http.Headers;
 using System.Drawing;
 using System.Data.Entity;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Linq;
 
 namespace V._3._0.Controllers
 {
+    [Authorize]
     public class ModulesController : Controller
     {
         public readonly HospitalData db;
@@ -28,10 +32,12 @@ namespace V._3._0.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
         List<Patients> patients;
-
+        
         //Method to Display the list of patients in patients view
         public IActionResult Patients()
         {
+            //var HosId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            //patients = db.Patients.Where(p => p.SignupId == HosId).ToList();
             patients = db.Patients.ToList();
             return View(patients);
         }
@@ -69,6 +75,8 @@ namespace V._3._0.Controllers
         [HttpPost]
         public IActionResult NewPatient(Models.Patients newpatient)
         {
+            
+
             Models.Patients patient = new Models.Patients()
             {
                 Id = newpatient.Id,
@@ -76,12 +84,11 @@ namespace V._3._0.Controllers
                 Status = newpatient.Status,
                 DateOfAdm = newpatient.DateOfAdm,
                 DateOfDis = newpatient.DateOfDis,
-                Roomno = newpatient.Roomno,
-                //PersonalInfo = new PersonalInfo() { PatId = newpatient.Id }
-
-            };
-            db.Patients.Add(patient);
-            db.SaveChanges();
+                Roomno = newpatient.Roomno
+            
+        };
+            patientsdata.Add(patient);
+          
             return RedirectToAction("Patients", "Modules");
 
 
